@@ -1,7 +1,7 @@
 from typing import List
 
 
-def read_data():
+def find_santas_location():
     left_side = []
     right_side = []
     with open('input.txt', 'r') as file:
@@ -11,9 +11,13 @@ def read_data():
                 left_side.append(int(columns[0]))
                 right_side.append(int(columns[1]))
 
+    # Similarity Score
+    total_similarity_score = calculate_similarity_score(left_side, right_side)
     # Get sum of distance
     total_distance = calculate_distance(left_side, right_side)
+
     print(f'The total distance is: {total_distance}')
+    print(f'The similarity score is: {total_similarity_score}')
 
 
 def calculate_distance(left_list: List[int], right_list: List[int]) -> int:
@@ -35,4 +39,12 @@ def calculate_distance(left_list: List[int], right_list: List[int]) -> int:
     return distance
 
 
-read_data()
+def calculate_similarity_score(left_list: List[int], right_list: List[int]) -> int:
+    similarity_score = 0
+    for num in left_list:
+        occurrence = right_list.count(num)
+        similarity_score += (num * occurrence)
+    return similarity_score
+
+
+find_santas_location()
